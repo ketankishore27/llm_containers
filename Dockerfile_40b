@@ -1,0 +1,19 @@
+FROM pytorch/pytorch:2.0.0-cuda11.7-cudnn8-devel
+
+COPY . /usr/src/falcon-40b/
+
+RUN apt-get update -y &&\
+    apt-get install -y git-lfs &&\
+    apt-get install -y apt-utils &&\
+    cd /usr/src/falcon-40b/falcon-40b-instruct && \
+    git lfs install &&\
+    git lfs pull && \
+    apt-get install -y git &&\
+    apt-get install -y wget &&\
+    cd .. &&\
+    pip install -r requirements.txt
+    
+
+WORKDIR /usr/src/falcon-40b/
+
+CMD python /usr/src/falcon-40b/app/app_40b.py
