@@ -1,0 +1,20 @@
+FROM pytorch/pytorch:2.0.0-cuda11.7-cudnn8-devel
+
+COPY . /usr/src/llama-70b/
+
+RUN apt-get update -y &&\
+    apt-get install -y git-lfs &&\
+    apt-get install -y apt-utils &&\
+    apt-get install -y git &&\
+    apt-get install -y wget &&\
+    cd /usr/src/llama-70b/ &&\
+    git clone https://github.com/PanQiWei/AutoGPTQ.git &&\
+    cd AutoGPTQ &&\
+    git checkout v0.2.2 &&\
+    pip install . &&\
+    cd .. &&\
+    pip install -r requirements_llama_70b.txt
+    
+WORKDIR /usr/src/llama-70b/
+
+CMD python /usr/src/llama-70b/app/app_llama_70b.py
