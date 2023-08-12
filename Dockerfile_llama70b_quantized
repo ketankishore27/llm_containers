@@ -13,7 +13,7 @@ RUN apt-get update -y &&\
     git checkout v0.2.2 &&\
     pip install . &&\
     cd .. &&\
-    pip install -r requirements_llama_70b.txt
+    pip install -r requirements.txt
     
 WORKDIR /usr/src/llama-70b/
 
